@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroCraftHub - Freelancer Profile</title>
+  <link rel="stylesheet" href="stylep.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">RetroCraftHub</div>
+      <div>
+        <a href="/freeldashb" class="profile-btn">Dashboard</a>
+        <a href="#" class="search-btn">Job Page</a>
+        <a href="#" class="notification-icon">Notification</a>
+      </div>
+    </nav>
+  </header>
+  <div class="welcome-user">
+    <h2>Welcome,<%= user.name %>!</h2>
+    <p>Welcome to your profile</p>
+    <div class="profile-picture">
+      <% if (freelancer.profileImage) { %>
+        <img src="/uploads/<%= freelancer.profileImage %>" alt="Profile Image" >
+    <% } %>
+
+    </div>
+  </div>
+  <form action="#" method="post" enctype="multipart/form-data" class="profile-form">
+    <label for="username">Name: <span><%=freelancer.name%></span></label>
+    <label for="profileImage">Upload Profile Image:</label>
+    <input type="file" name="profileImage" id="profileImage" accept="image/*">
+    <label for="profession">Profession: <span><%=freelancer.jobProfile%></span></label>
+    <label for="earlier-exp">Experience: <span><%=freelancer.jobexp%></span></label>
+    <label for="experience">Qualifications:</label>
+    <textarea name="experience" id="experience" rows="4" cols="50" placeholder="Tell us about your qualifications"><%= freelancer.experience %></textarea>
+    
+    <label for="about">About:</label>
+    <textarea name="about" id="about" rows="4" cols="50" placeholder="Tell about yourself and past works"><%= freelancer.about %></textarea>
+
+    <button type="submit">Update Profile</button>
+    <div class="back">
+    <a href="/freeldashb">Go back without updating</a>
+    </div>
+  </form>
+    
+  <script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const profileImageInput = document.getElementById("profileImage");
+  const profilePic = document.getElementById("profilePic");
+
+  profileImageInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        profilePic.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+});
+
+  </script>
+</body>

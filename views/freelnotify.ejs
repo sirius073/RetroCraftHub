@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>notify</title>
+    </head>
+    <body>
+        <h1>notification</h1>
+        
+<script src="http://localhost:3510/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  socket.on('connect', () => {
+    // Listen for job offer notifications from the server
+    socket.on('jobOfferNotification', (data) => {
+      // Display the job offer notification on the freelancer's notification page
+      // You can use this data to show the job offer details
+      console.log('Received job offer:', data.jobDetails);
+      // Update the DOM to display the notification
+      document.body.innerHTML += `<p>${data.jobDetails}</p>`;
+    });
+  });
+</script>
+
+    </body>
+</html>

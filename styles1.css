@@ -1,0 +1,143 @@
+/* Basic CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-image: url("https://imgs.search.brave.com/dd-UxU__Kq2j51yEBuYE3KEKS3cIzUatkQqMRp9A-94/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9m/bGF0LWxheS13b3Jr/c3RhdGlvbi13aXRo/LWNvcHktc3BhY2Ut/bGFwdG9wXzIzLTIx/NDg0MzA4NzkuanBn/P3NpemU9NjI2JmV4/dD1qcGc");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    line-height: 1.6;
+  }
+  
+  /* Header Styling */
+  header {
+    background: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    padding: 20px;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  .nav-links li {
+    display: inline;
+    margin-left: 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 25px;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 25px;
+  }
+  
+  .nav-links a:hover {
+    color: black; /* Yellow hover color */
+  }
+  
+  .logo h1 {
+    font-size: 34px;
+    font-style: italic;
+  }
+  
+  /* Hero Section Styling */
+  .hero {
+    padding: 100px 20px; /* Adjusted padding */
+    padding-left: 100px;
+  }
+  
+  .hero h2 {
+    font-size: 53px;
+    margin-bottom: 20px;
+  }
+  
+  .hero p{
+    font-size: 30px;
+    font-style: italic;
+  }
+  /* Search Bar Styling */
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 300px;
+    margin-right: 10px; /* Added spacing between input and button */
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
+  /* Footer Styling */
+  footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  span{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+  }
+  /* Dropdown Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: black;
+  padding: 5px 0;
+  border-radius: 4px;
+  font-size: 8px;
+  text-align: left;
+  color: black;
+  margin-right: 2px;
+  margin-right: 1px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  display: block;
+}
+
+/* Other styles remain the same */
+
+  
