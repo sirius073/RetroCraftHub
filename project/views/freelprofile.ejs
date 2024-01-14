@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroCraftHub - freelancer Profile</title>
+  <link rel="stylesheet" href="stylep.css">
+</head>
+<body>
+  <div class="main">
+  <header>
+    <nav>
+      <div class="logo">RetroCraftHub</div>
+      <div>
+        <a href="/freeldashb" class="profile-btn">Dashboard</a>
+        <a href="/jobpage" class="search-btn">Job Page</a>
+        <a href="/freelnotify" class="notification-icon">Notification</a>
+        <a href="/login" class="notification-icon">Logout</a>
+      </div>
+    </nav>
+  </header>
+  <div class="welcome-user">
+    <div class="profile-picture">
+      <% if (user.profileImage) { %>
+        <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" >
+    <% } %>
+     
+    </div>
+    <h2>Welcome,<%= user.name %>!</h2>
+    Welcome to your profile
+   
+  </div>
+</div>
+  <form action="/freelprofile" method="post" enctype="multipart/form-data" class="profile-form">
+    <label for="profileImage">Upload Profile Image:</label>
+    <input type="file" name="profileImage" id="profileImage" accept="image/*">
+    <label for="username">Name: <span><%= user.name %></span></label>
+    <label for="profession">Profession: <span><%= user.jobProfile %></span></label>
+    <label for="earlier-exp">Experience(yrs): <span><%= user.jobexp %></span></label>
+
+   
+
+    <label for="paygrade">Expected Paygrade(rs.): <span><%= user.paygrade%></span></label>
+    <label for="qualification">Qualifications: </label>
+    <textarea name="qualification" id="qualification" rows="4" cols="50" placeholder="Tell us about your qualifications"><%= user.qualification %>  </textarea>
+    
+    <label for="pastProjects" >Past Projects:</label>
+    <textarea name="pastProjects" id="pastProjects" rows="4" cols="50" placeholder="Tell about your past projects"><%= user.pastProjects %></textarea>
+
+ <label for="about" >About:</label>
+    <textarea name="about" id="about" rows="4" cols="50" placeholder="Tell about yourself and past works"><%= user.about %></textarea>
+    <div class="contact-container">
+      <div class="contact-me">
+        <h2>Contact Details</h2>
+        <form id="contactForm">
+          <div class="form-row">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required  value="<%= user.contactDetails ? user.contactDetails.phone : '' %>">
+          </div>
+          <div class="form-row">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required  value="<%= user.contactDetails ? user.contactDetails.address : '' %>">
+          </div>
+          <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required  value="<%= user.contactDetails ? user.contactDetails.email : '' %>">
+          </div>
+        </div>
+    <button  type="submit">Update Profile</button>
+    <div class="back">
+    <a href="/freeldashb">Go back without updating</a>
+   
+  </form>
+
+  
+
+  <script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const profileImageInput = document.getElementById("profileImage");
+  const profilePic = document.getElementById("profilePic");
+
+  profileImageInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        profilePic.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+});
+
+  </script>
+</body>
+</html>

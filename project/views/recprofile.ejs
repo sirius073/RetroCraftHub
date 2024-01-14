@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroCraftHub - Recruiter Profile</title>
+  <link rel="stylesheet" href="stylep.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">RetroCraftHub</div>
+      <div>
+        <a href="/recdashb" class="profile-btn">Dashboard</a>
+        <a href="/newjob" class="search-btn">New Job</a>
+        <a href="/recnotify" class="notification-icon">Notification</a>
+        <a href="/login1" class="notification-icon">Logout</a>
+      </div>
+    </nav>
+  </header>
+  
+<div class="welcome-user">
+
+    <div class="profile-picture">
+        <% if (recruiter.profileImage) { %>
+          <img src="/uploads/<%= recruiter.profileImage %>" alt="Profile Image"  >
+      <% } %>
+       
+      </div>
+    <h2>Welcome, <%= user.name %>!</h2>
+    
+  </div>
+  
+  <form action="/recprofile" method="post" enctype="multipart/form-data" class="profile-form">
+    <label for="profileImage">Upload Profile Image:</label>
+    <input type="file" name="profileImage" id="profileImage" accept="image/*">
+    <label for="username">Name: <span><%=user.name%></span></label>
+    <label for="profession">Profession:</label>
+    <input type="text" name="profession" id="profession" value="<%=user.profession ? user.profession : '' %>">
+    <label for="experience">Experience and Qualifications:</label>
+    <textarea name="experience" id="experience" rows="4" cols="50"><%= user.experience %></textarea>
+
+    <label for="projects">Past Projects:</label>
+    <textarea name="projects" id="projects" rows="4" cols="50"><%= user.projects %></textarea>
+
+    <label for="about">About:</label>
+    <textarea name="about" id="about" rows="4" cols="50"><%= user.about %></textarea>
+
+    
+    <div class="contact-container">
+      <div class="contact-me">
+        <h2>Contact Details</h2>
+        <form id="contactForm">
+          <div class="form-row">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required  value="<%= user.contactDetails ? user.contactDetails.phone : '' %>">
+          </div>
+          <div class="form-row">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required  value="<%= user.contactDetails ? user.contactDetails.address : '' %>">
+          </div>
+          <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required  value="<%= user.contactDetails ? user.contactDetails.email : '' %>">
+          </div>
+        </div>
+    
+
+    <button type="submit">Update Profile</button>
+    <div class="back">
+      <a href="/recdashb">Go back without updating</a>
+</form>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const profileImageInput = document.getElementById("profileImage");
+      const profilePic = document.getElementById("profilePic");
+  
+      profileImageInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+  
+        if (file) {
+          const reader = new FileReader();
+  
+          reader.onload = (e) => {
+            profilePic.src = e.target.result;
+          };
+  
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+
+  
+
+  </script>
+</body>

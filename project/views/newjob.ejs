@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  
+<head> 
+  <link rel="stylesheet" href="stylef.css">   
+</head> 
+  
+<body> 
+    <header> 
+        <nav>
+            <div class="logo">RetroCraftHub</div>
+            <div>
+                <a href="/recdashb" class="profile-btn">Dashboard</a>
+                <a href="/recprofile" class="search-btn">Profile</a>
+                <a href="/recnotify" class="notification-icon">Notification</a>
+                <a href="/login1">Logout</a>
+            </div>
+        </nav>
+    </header> 
+    <h2 class = "rec">Fill your preferences..</h2>
+    
+    <div class="form">
+        
+        <form action="/newjob" method="post">
+          <label for="job">Job:</label>
+          <select name="job" id="job" required>
+            <option value="Actor">Actor</option>
+            <option value="Music Producer">Music Producer</option>
+            <option value="Dancer">Dancer</option>
+          </select>
+          <br>
+          <label for="jobExperience">Job Experience:</label>
+          
+          <input type="number" name="jobExperience" id="jobExperience">
+         
+         
+          <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="previous-preferences">
+      <div class="pjp">
+      <h3>Previous Job Preferences:</h3>
+      </div>
+      <% if (user && user.jobPreferences && user.jobPreferences.length > 0) { %>
+          <% user.jobPreferences.forEach((preference,index) => { %>
+              <div class="freelancer-card">
+                  <h3><%= preference.job %></h3>
+                  <p>Experience(yrs): <%= preference.jobExperience %></p>  
+                  <form action="/deletePreference/<%= index %>" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+              </div>
+          <% }); %>
+      <% } else { %>
+          <p>No previous job preferences found.</p>
+      <% } %>
+  </div>
+</body> 
+</html>

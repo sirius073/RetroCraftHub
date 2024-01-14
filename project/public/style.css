@@ -1,0 +1,116 @@
+/* Basic CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+        /* Other styles */
+        background-image: url("https://imgs.search.brave.com/dd-UxU__Kq2j51yEBuYE3KEKS3cIzUatkQqMRp9A-94/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9m/bGF0LWxheS13b3Jr/c3RhdGlvbi13aXRo/LWNvcHktc3BhY2Ut/bGFwdG9wXzIzLTIx/NDg0MzA4NzkuanBn/P3NpemU9NjI2JmV4/dD1qcGc");
+        /* You can adjust other background properties like size, position, and repeat as needed */
+        background-size: cover; /* Ensures the image covers the entire background
+        /* background-position: center; */
+        /* If you want the background to not repeat */ 
+        background-repeat: no-repeat;
+      
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  /* Header Styling */
+  header {
+    background:black;
+    color: #fff;
+    padding-left: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  .nav-links li {
+    display: inline;
+    margin-left: 20px;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .logo h1 {
+    font-size:  34px;
+    font-style: italic;
+  }
+  
+  /* Hero Section Styling */
+  .hero {
+    padding-left: 200px;
+    padding: 100px ;
+    
+  }
+  
+  .hero h2 {
+    color: #fff;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .btn:hover {
+    background: #555;
+  }
+  
+  /* Footer Styling */
+  footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  /* Example CSS for styling the search bar */
+
+  
+  input[type="text"] {
+    padding: 6px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 200px;
+  }
+  
+  button {
+    padding: 8px 15px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  

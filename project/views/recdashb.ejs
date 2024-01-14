@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <link rel="stylesheet" href="stylef.css">   
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+</head> 
+<body> 
+    <header> 
+        <nav>
+            <div class="logo">RetroCraftHub</div>
+            <div>
+                <a href="/recprofile" class="profile-btn">Profile</a>
+                <a href="/newjob" class="search-btn">New Job</a>
+                <a href="/recnotify" class="notification-icon">
+                    Notification
+                </a>
+                <a href="/login1">Logout</a>
+            </div>
+        </nav>
+    </header> 
+    <div class="welcome-user">
+        <h2>Welcome, <%= user.name %>!</h2>
+        <p>Explore your dashboard and find the perfect freelancer for you.</p>
+    </div>   
+    <div >
+      <div id="freelancer-cards-container">
+        <% if (recruiter && recruiter.jobPreferences && recruiter.jobPreferences.length > 0) { %>
+            <% let filteredFreelancers = [] %>
+            <% recruiter.jobPreferences.forEach(preference => {
+                const filtered = freelancers.filter(freelancer => {
+                    return (
+                        freelancer.jobProfile === preference.job &&
+                        freelancer.jobexp >= preference.jobExperience
+                       
+                    );
+                });
+                filteredFreelancers = filteredFreelancers.concat(filtered);
+            }); %>
+            <% if(filteredFreelancers && filteredFreelancers.length > 0) { %>
+                <% filteredFreelancers.forEach(freelancer => { %>
+                    <div class="freelancer-card">
+                        <h3><%= freelancer.name %></h3>
+                        <p>Job Profile: <%= freelancer.jobProfile %></p>
+                        <p>Job Experience(yrs): <%= freelancer.jobexp %></p>
+                        
+                        <p><a href="/freelprofileforrec/<%= freelancer.id %>" class="profile-link">See Profile</a></p>
+                        <button class="hire-button" data-freelancer-name="<%= freelancer.name %>" data-freelancer-id="<%= freelancer.id %>">Offer Job</button>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No freelancers match the preferences.</p>
+            <% } %>
+        <% } else { %>
+            <% freelancers.forEach(freelancer => { %>
+                <div class="freelancer-card">
+                    <h3><%= freelancer.name %></h3>
+                    <p>Job Profile: <%= freelancer.jobProfile %></p>
+                    <p>Job Experience(yrs): <%= freelancer.jobexp %></p>
+                    
+                    <p><a href="/freelprofileforrec/<%= freelancer.id %>" class="profile-link">See Profile</a></p>
+                    <button id="jobo" class="hire-button" data-freelancer-name="<%= freelancer.name %>" data-freelancer-id="<%= freelancer.id %>" >Offer Job</button>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</div>   
+<script> const recruiterId='<%=user._id%>';</script>
+<script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+
+<script>
+  const socket = io();
+  const hireButtons = document.querySelectorAll(".hire-button"); 
+
+  
+
+  hireButtons.forEach(button => {
+    button.onclick = async () => {
+  const freelancerName = button.getAttribute('data-freelancer-name');
+  const freelancerId = button.getAttribute('data-freelancer-id');
+  alert("Job offered")
+  const newNotification = {
+    type:'freelancer',
+    rname: '<%= user.name %>',
+    rId: recruiterId,
+    fId: freelancerId,
+  };
+
+  try {
+            await fetch('/recdashb', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newNotification),
+            });
+
+            // Emit a socket event after successfully saving to the server
+            socket.emit('hireNotification', {
+              recruiterName: '<%= user.name %>',
+              freelancerId,
+            });
+          } catch (error) {
+            console.error('Error creating notification:', error);
+          }
+        };
+      });
+
+  
+</script>   
+</body> 
+</html>

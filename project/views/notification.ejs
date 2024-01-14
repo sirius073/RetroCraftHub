@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="stylef.css">   
+    <link rel="stylesheet" href="responsive.css"> 
+    <title>Notification</title>
+</head>
+<body>
+    <header> 
+        <nav>
+            <div class="logo">RetroCraftHub</div>
+            <div>
+                <a href="/freeldashb" class="profile-btn">Dashboard</a>
+                <a href="/freelprofile" class="profile-btn">Profile</a>
+                <a href="/jobpage" class="search-btn">Job Page</a>
+    
+                <a href="/login">Logout</a>
+            </div>
+        </nav>
+    </header> 
+    <div class="welcome-user">
+        <h2>Welcome, <%= user.name %>!</h2>
+        
+    </div>
+    <div class="freelancer-card"> 
+
+    </div>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+        const p = document.querySelector(".freelancer-card");
+
+        socket.on('notification', ({ message }) => {
+            alert(message);
+        });
+
+        socket.on('hire_notification', ({  recruiterName, recruiterId, notificationId }) => {
+            p.innerHTML = `
+                <h3>${recruiterName} offered you a job!</h3>
+                <p><a href="/recprofileforfreel/${recruiterId}" class="profile-link">See Profile</a></p><br>
+                <button value="accept" class="accept-btn" onclick="acceptNotification('${recruiterId}')">Accept</button> 
+                <button value="decline" class="decline-btn" onclick="declineNotification('${recruiterId}')">Decline</button>
+            `;
+
+           
+            fetch('/freelnotify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'recruiter',
+                    rId: recruiterId,
+                    rname:recruiterName,
+                    fId:'<%= user._id %>',
+                    
+                    
+                }),
+            });
+        });
+
+        const freelancerId = '<%= user._id %>';
+        socket.emit('freelancerConnect', { freelancerId, type: 'freelancer' });
+
+
+        function declineNotification (recruiterId){
+         alert("click on button again")
+         socket.emit('declined', {message:"Your offer has been declined",recruiterId} )
+        }
+
+
+        function acceptNotification(recruiterId){
+         socket.emit('accepted',{message:"Your offer have been accepted",recruiterId})
+        
+        }
+      
+       
+    </script>
+</body>
+</html>

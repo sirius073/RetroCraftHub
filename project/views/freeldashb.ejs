@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  
+<head> 
+  <link rel="stylesheet" href="stylef.css">   
+  <link rel="stylesheet" href="responsive.css"> 
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+</head> 
+  
+<body> 
+    <header> 
+        <nav>
+            <div class="logo">RetroCraftHub</div>
+            <div>
+                <a href="/freelprofile" class="profile-btn">Profile</a>
+                <a href="/jobpage" class="search-btn">Job Page</a>
+                <a href="/freelnotify" class="notification-icon">Notification </a>
+                <a href="/login">Logout</a>
+            </div>
+        </nav>
+    </header> 
+    <div class="welcome-user">
+        <h2>Welcome, <%= user.name %>!</h2>
+        <p>Look out for the job that suits you best.</p>
+    </div>
+    
+    <div >
+          
+      <div id="freelancer-cards-container">
+        <% recruiters.forEach(recruiter => { %>
+          <div class="freelancer-card">
+            <h3><%= recruiter.name %></h3>
+            <% recruiter.jobPreferences.forEach(jobPref => { %>
+              <p>Job required: <%= jobPref.job %></p>
+              <p>Job Experience required: <%= jobPref.jobExperience %></p>
+            <% }); %>
+            <p><a href="/recprofileforfreel/<%= recruiter.id %>" class="profile-link">See Profile</a></p>
+          </div>
+        <% }); %>
+      </div>
+      
+        </div>
+
+        
+        
+</body> 
+</html>

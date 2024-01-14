@@ -1,0 +1,209 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,900;1,200;1,400;1,500;1,600;1,800&display=swap');
+body {
+	margin: 0;
+	font-family: 'Poppins', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+nav {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	background-color: #333;
+	padding: 15px;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-size: 34px;
+    font-style: italic;
+    color: #fff;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+a{
+	color: white;
+	text-decoration: none;
+	margin: 0 10px;
+	font-size: 1.2em;
+}
+.profile-link{
+	color:grey;
+	text-align: left;
+	font-size: 17px;
+	margin: 0;
+}
+.notification-icon {
+	position: relative;
+}
+
+
+.freelancer-card {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.freelancer-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.freelancer-card p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+
+/* Add this CSS to your main stylesheet or a separate file */
+.welcome-user {
+    background-color: #2c2d2d;
+    color: #fff;
+    padding: 20px;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.welcome-user h2 {
+	color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.welcome-user p {
+    margin: 0;
+    font-size: 1.2em;
+}
+form {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 300px;
+	text-align: left;
+	
+  }
+  .form{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+.rec {
+	margin-bottom: 20px;
+	color: #333;
+	text-align: center;
+  }
+  
+  label {
+	display: block;
+	margin-bottom: 8px;
+	color: #555;
+  }
+  
+  input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+  
+  button {
+	padding: 10px;
+	background-color: #434443;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+  }
+  
+  button:hover {
+	background-color: #c3c7c3;
+	color: #000;
+  }
+ /* Form styling */
+.form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+  }
+  
+  form {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 300px;
+	text-align: left;
+  }
+  
+  label {
+	display: block;
+	margin-bottom: 8px;
+	color: #555;
+  }
+  
+  input[type="radio"] {
+	margin-right: 5px;
+  }
+  
+  button {
+	padding: 10px;
+	background-color: #434443;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+  }
+  
+  button:hover {
+	background-color: #c3c7c3;
+	color: #000;
+  }
+  
+  /* Job experience options styling */
+  .options-container {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+  }
+  
+  .option {
+	display: flex;
+	align-items: center;
+  }
+  
+  .option label {
+	margin-left: 5px;
+	color: #555;
+  }
+  select {
+	width: calc(100% - 10px);
+	padding: 8px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+  }  
+  .pjp{
+      margin-left: 20px;
+  }
+  .accept-btn {
+	width: 100px;
+  }
+  .decline-btn{
+	width: 100px;
+  }

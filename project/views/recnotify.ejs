@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="stylef.css">   
+    <link rel="stylesheet" href="responsive.css"> 
+    <title>Notification</title>
+</head>
+<body>
+    <header> 
+        <nav>
+            <div class="logo">RetroCraftHub</div>
+            <div>
+                <a href="/recdashb" class="profile-btn">Dashboard</a>
+                <a href="/recprofile" class="profile-btn">Profile</a>
+                <a href="/newjob" class="search-btn">New Job</a>
+    
+                <a href="/login1">Logout</a>
+            </div>
+        </nav>
+    </header> 
+    <div class="welcome-user">
+        <h2>Welcome, <%= user.name %>!</h2>
+        
+    </div>
+    <div class="freelancer-card">
+
+    </div>
+   
+  
+     <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+     <script>
+const socket = io();
+const card = document.querySelector(".freelancer-card");
+socket.emit('rConnect', { rId : '<%= user._id %>'});
+
+socket.on('rnotification',({message,notificationId})=>{
+console.log(message)
+})
+
+
+socket.on('ans_notification',({recruiterName, recruiterId,message,fname})=>{
+if (message){
+    card.innerHTML=`<h3>${message} by ${fname}</h3>`
+}
+
+})
+
+ </script>
+
+</body>
+</html>

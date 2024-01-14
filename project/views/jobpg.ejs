@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="stylef.css">   
+    <link rel="stylesheet" href="responsive.css"> 
+    <title>Notification</title>
+</head>
+<body>
+    <header> 
+        <nav>
+            <div class="logo">RetroCraftHub</div>
+            <div>
+                <a href="/freeldashb" class="profile-btn">Dashboard</a>
+                <a href="/freelprofile" class="profile-btn">Profile</a>
+                <a href="/freelnotify" class="search-btn">Notification</a>
+    
+                <a href="/login">Logout</a>
+            </div>
+        </nav>
+    </header> 
+    <div class="welcome-user">
+        <h2>Welcome, <%= user.name %>!</h2>
+        
+    </div>
+    <div class="freelancer-card">
+    </div>
+    
+    <script>
+     const card = document.querySelector(".freelancer-card")
+     if('<%= rname %>'){
+        card.innerHTML='<h3> You are currently working with <%= rname %> </h3><button type="submit">Job Done!</button>'
+     }
+
+     
+    </script>
+</body>
+</html>
