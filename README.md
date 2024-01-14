@@ -13,8 +13,8 @@ Then open VS code. And in the terminal install the following using the "npm inst
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
-    "socket.io": "^4.7.2"
-Example- npm install async
+    "socket.io": "^4.7.2".   
+Example- "npm install async".   
 Now run " node src/index1 " on your terminal.
 Further open the homepg.html.
 Now you can run the web app smoothly.
