@@ -1,5 +1,6 @@
 You should have MongoDb database installed on your device. Create a database with collections freelancers, recruiters, notifiction and jobpage
-Then open VS code. And in the terminal install the following using the "npm install":-
+Then open VS code, and in the terminal install the following using the "npm install":-
+
     "async": "^3.2.5",
     
     "bcryptjs": "^2.4.3",
