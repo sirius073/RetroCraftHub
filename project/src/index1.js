@@ -2,10 +2,10 @@ const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
-const collection = require('./config1');
-const notification = require('./config3');
-const jobpage = require('./config2');
-const collection2 = require('./config');
+const collection = require('./config1');  // recruiter's db
+const notification = require('./config3');  //Notification db
+const jobpage = require('./config2');      //Jobpage db
+const collection2 = require('./config');   //freelancers db
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const socketIO = require('socket.io');
@@ -17,7 +17,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new socketIO.Server(server);
 
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({   //for image storing we require multer 
   destination: (req, file, cb) => {
     cb(null, 'public/uploads'); 
   },
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use(cookieParser());
+app.use(cookieParser());   //for using express session
 
 app.use(
   session({
@@ -52,6 +52,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 
+
+//Google authentication part
 passport.use(new GoogleStrategy({
   clientID: '829573710311-njj88gcqcct13n3j6q2olqvjiq20b6bp.apps.googleusercontent.com',
   clientSecret: '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',
@@ -68,7 +70,7 @@ async (accessToken, refreshToken, profile, done) => {
     const newUser=({
       googleId:profile.id,
       name:profile.displayName,
-      password:"hi",
+      password:"justtesting",
     });
     USER=await collection.create( newUser );
      done(null,USER);
@@ -105,6 +107,9 @@ app.get('/auth/google/callback',
       res.redirect('/recdashb');
      }
 );
+
+
+//recruiter's authentication routes 
 
 app.get('/login1', (req, res) => {
   res.render('login1');
@@ -159,6 +164,8 @@ else if (req.body.loginType === 'google') {
 }
 });
 
+// recruiter's dashboard
+
 app.get('/recdashb', async (req, res) => {
   try {
     const user = req.session.user;
@@ -190,6 +197,7 @@ app.post('/recdashb', async (req, res) => {
 });
 
 
+//newjob route for recruiter to fill job preferences as per need
 app.get('/newjob', async (req, res) => {
   try {
       const user = req.session.user;
@@ -223,6 +231,28 @@ app.post('/newjob', async (req, res) => {
   }
 });
 
+//to delete prefrences 
+app.post('/deletePreference/:index', async (req, res) => {
+  const user = req.session.user;
+  const index = req.params.index;
+
+  try {
+      const recruiter = await collection.findOne(user);
+      if (recruiter.jobPreferences && recruiter.jobPreferences.length > index) {
+          recruiter.jobPreferences.splice(index, 1);
+          await recruiter.save();
+      }
+      req.session.user=recruiter
+      res.redirect('/newjob'); 
+  } catch (error) {
+      console.error('Error deleting job preference:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+//profile 
+
 app.get('/recprofile', async (req, res) => {
   const user = req.session.user;
   try {
@@ -246,7 +276,6 @@ app.post('/recprofile', upload.single('profileImage'), async (req, res) => {
   const profileImage = req.file ? req.file.filename : null;
 
   try {
-    // Update the recruiter's profile in the database
     const recruiter = await collection.findOneAndUpdate(
       { name: user.name },
       {
@@ -264,13 +293,15 @@ app.post('/recprofile', upload.single('profileImage'), async (req, res) => {
       { new: true }
     );
     req.session.user = recruiter;
-    res.redirect('/recprofile'); // Redirect to the recruiter profile or any other appropriate page
+    res.redirect('/recprofile'); 
   } catch (error) {
     console.error('Error updating recruiter profile:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
+
+//freelancer's profile
 app.get('/freelprofile', async (req, res) => {
   const user = req.session.user;
   try {
@@ -309,8 +340,6 @@ app.get('/freelprofile', async (req, res) => {
         },
         { new: true }
       );
-  
-      // Update the session with the new freelancer information
       req.session.user = freelancer;
   
       res.redirect('/freelprofile');
@@ -328,7 +357,7 @@ app.get('/freelnotify', (req,res)=>{
 
 })
 
-
+// freelancer's authentication routes 
 app.get("/login",(req,res)=>{
     res.render("login");
 })
@@ -379,6 +408,8 @@ app.post("/login",async (req,res)=>{
     }
 })
 
+//freelancer dashboard
+
 app.get("/freeldashb", async(req, res) => {
     try {
       const recruiters = await collection.find();
@@ -391,25 +422,8 @@ app.get("/freeldashb", async(req, res) => {
  
 });
 
-app.post('/deletePreference/:index', async (req, res) => {
-  const user = req.session.user;
-  const index = req.params.index;
 
-  try {
-      const recruiter = await collection.findOne(user);
-      if (recruiter.jobPreferences && recruiter.jobPreferences.length > index) {
-          // Remove the preference from the array based on the index
-          recruiter.jobPreferences.splice(index, 1);
-          await recruiter.save();
-      }
-      req.session.user=recruiter
-      res.redirect('/newjob'); 
-  } catch (error) {
-      console.error('Error deleting job preference:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
-
+//freelancer's profile for recruiter
 app.get('/freelprofileforrec/:freelancerId', async (req, res) => {
   const freelancerId = req.params.freelancerId;
   const freelancer = await collection2.findById(freelancerId);
@@ -425,7 +439,7 @@ app.get('/recprofileforfreel/:recruiterId', async (req, res) => {
   res.render('recprofileforfreel', { recruiterId, recruiter,user });
 });
 
-
+//notification routes 
 app.get('/recnotify',(req,res)=>{
   const user = req.session.user;
   res.render('recnotify',{user})
@@ -451,6 +465,7 @@ app.post('/freelnotify', async (req, res) => {
   }
 });
 
+//job page to show existing jobs for freelancer
 
 app.get('/jobpage', async (req, res) => {
   const user = req.session.user;
@@ -476,7 +491,7 @@ app.get('/jobpage', async (req, res) => {
   }
 });
 
-
+// socket io connections for notifications 
 
 const freelancerSocketMap = {};
 const rSocketMap = {}
@@ -487,7 +502,6 @@ io.on('connection', (socket) => {
     console.log(freelancerSocketMap)
 
     try {
-      // Find and emit pending notifications to the freelancer
       const notifications = await notification.find({ fId: freelancerId, type: 'freelancer' });
       if (notifications.length > 0) {
         notifications.forEach((notification) => {
@@ -539,7 +553,7 @@ io.on('connection', (socket) => {
     const freelancerSocketId = freelancerSocketMap[freelancerId];
     if (freelancerSocketId) {
       io.to(freelancerSocketId).emit('notification', {
-        message: `${recruiterName} hired you`,
+        message: ${recruiterName} hired you,
       });
     } 
     
@@ -581,7 +595,6 @@ io.on('connection', (socket) => {
 socket.on('accepted', async ({ message, recruiterId }) => {
   console.log(message);
   try {
-    // Update the message in the notification database
     const noti = await notification.findOne({ rId: recruiterId, type: 'recruiter' });
     console.log(noti);
     if (!noti) {
@@ -600,16 +613,10 @@ socket.on('accepted', async ({ message, recruiterId }) => {
       },
       { new: true }
     );
-
-    // Update the message in the jobpage database
     await jobpage.updateMany({ rId: recruiterId, type: 'recruiter' }, { $set: { message: message } });
-
-    // Emit the updated notification to the recruiter's socket
     if (rSocketMap[recruiterId]) {
       io.to(rSocketMap[recruiterId]).emit('rnotification', { message, notificationId });
     }
-
-    // Delete notifications from the notification database for the given recruiter and freelancer type
     await notification.deleteMany({ rId: recruiterId, type: 'freelancer' });
   } catch (err) {
     console.error('Error processing accepted notification:', err);
@@ -621,11 +628,8 @@ socket.on('accepted', async ({ message, recruiterId }) => {
 });
 
 
- 
-
-
 const port = 3510;
 
 server.listen(port, () => {
-  console.log(`Server running on Port: ${port}`);
+  console.log(Server running on Port: ${port});
 });
